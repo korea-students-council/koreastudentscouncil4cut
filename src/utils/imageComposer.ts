@@ -6,8 +6,7 @@ import { CapturedPhoto } from '../types';
  */
 export const composeFourCutImage = async (
   photos: CapturedPhoto[],
-  frameImageUrl?: string,
-  layout: 'default' | 'bottom-wide' = 'default'
+  frameImageUrl?: string
 ): Promise<string> => {
   const { outputWidth, outputHeight } = PHOTO_CONFIG;
   

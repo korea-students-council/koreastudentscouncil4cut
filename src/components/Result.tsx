@@ -32,10 +32,9 @@ const Result: React.FC<ResultProps> = ({ photos, frame, onRestart }) => {
       setState('composing');
       setProgress('이미지를 합성하고 있습니다...');
       
-      // 선택한 프레임을 사용하여 합성 (레이아웃 타입 전달)
+      // 선택한 프레임을 사용하여 합성
       const frameUrl = frame?.imageUrl || undefined;
-      const layout = frame?.layout || 'default';
-      const composedDataUrl = await composeFourCutImage(photos, frameUrl, layout);
+      const composedDataUrl = await composeFourCutImage(photos, frameUrl);
       setComposedImageUrl(composedDataUrl);
 
       // 2. Cloudinary 업로드

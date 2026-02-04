@@ -70,7 +70,7 @@ const FrameSelect: React.FC<FrameSelectProps> = ({
               msOverflowStyle: 'none',
             }}
           >
-            {frames.map((frame, index) => (
+            {frames.map((frame) => (
               <div
                 key={frame.id}
                 className="snap-center flex-shrink-0 w-full h-full flex items-center justify-center px-4"
@@ -113,7 +113,7 @@ const FrameSelect: React.FC<FrameSelectProps> = ({
 
           {/* 인디케이터 */}
           <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
-            {frames.map((frame, index) => (
+            {frames.map((frame) => (
               <div
                 key={frame.id}
                 className={`h-2 rounded-full transition-all duration-300 ${

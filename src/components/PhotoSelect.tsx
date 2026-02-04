@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { CapturedPhoto } from '../types';
-import { PHOTO_CONFIG } from '../config/constants';
 
 interface PhotoSelectProps {
   photos: CapturedPhoto[];
