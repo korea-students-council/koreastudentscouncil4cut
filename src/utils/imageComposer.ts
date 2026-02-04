@@ -6,7 +6,8 @@ import { CapturedPhoto } from '../types';
  */
 export const composeFourCutImage = async (
   photos: CapturedPhoto[],
-  frameImageUrl?: string
+  frameImageUrl?: string,
+  layout: 'default' | 'bottom-wide' = 'default'
 ): Promise<string> => {
   const { outputWidth, outputHeight } = PHOTO_CONFIG;
   
@@ -24,28 +25,34 @@ export const composeFourCutImage = async (
   ctx.fillStyle = '#FFFFFF';
   ctx.fillRect(0, 0, outputWidth, outputHeight);
 
-  // 각 사진의 높이 계산 (4등분)
-  const photoHeight = outputHeight / 4;
+  // 항상 default 레이아웃 사용 (4개 영역)
+  const photoAreas = [
+    { x: 65, y: 78, width: 463, height: 689 },    // 좌상
+    { x: 552, y: 78, width: 463, height: 689 },   // 우상
+    { x: 65, y: 789, width: 463, height: 689 },   // 좌하
+    { x: 552, y: 789, width: 463, height: 689 },  // 우하
+  ];
 
-  // 4장의 사진을 순서대로 그리기
-  for (let i = 0; i < photos.length; i++) {
+  // 4장의 사진을 정확한 위치에 배치
+  for (let i = 0; i < photos.length && i < 4; i++) {
     const photo = photos[i];
     const img = await loadImage(photo.dataUrl);
-    
-    const y = i * photoHeight;
+    const area = photoAreas[i];
     
     // 이미지를 Canvas에 그리기 (비율 유지하며 crop)
-    drawImageCover(ctx, img, 0, y, outputWidth, photoHeight);
+    drawImageCover(ctx, img, area.x, area.y, area.width, area.height);
   }
 
-  // 날짜 텍스트 추가
-  addDateText(ctx, outputWidth, outputHeight);
-
-  // 프레임이 있으면 오버레이
+  // 프레임이 있으면 오버레이 (반전 없이 그대로)
   if (frameImageUrl) {
     const frameImg = await loadImage(frameImageUrl);
+    console.log('프레임 로드 완료, 반전 없이 그리기');
     ctx.drawImage(frameImg, 0, 0, outputWidth, outputHeight);
+    console.log('프레임 그리기 완료');
   }
+
+  // 날짜 텍스트 추가 (프레임 하단 여백에 배치)
+  addDateText(ctx, outputWidth, outputHeight);
 
   // Canvas를 Data URL로 변환
   return canvas.toDataURL('image/jpeg', 0.95);
@@ -118,15 +125,16 @@ const addDateText = (
   const dateStr = `${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2, '0')}.${String(now.getDate()).padStart(2, '0')}`;
 
   ctx.save();
-  ctx.font = 'bold 36px Arial, sans-serif';
+  ctx.font = 'bold 28px Arial, sans-serif';
   ctx.fillStyle = '#FFFFFF';
   ctx.strokeStyle = '#000000';
-  ctx.lineWidth = 4;
+  ctx.lineWidth = 3;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'bottom';
 
+  // 프레임 하단 중앙에 배치 (y: 1500 근처)
   const x = width / 2;
-  const y = height - 30;
+  const y = height - 380; // 프레임 하단 여백 고려
 
   // 텍스트 외곽선
   ctx.strokeText(dateStr, x, y);

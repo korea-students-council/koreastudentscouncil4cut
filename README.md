@@ -330,4 +330,4 @@ MIT
 
 ---
 
-Made with ❤️ by Senior Frontend Engineer
+Made by Taeyoung

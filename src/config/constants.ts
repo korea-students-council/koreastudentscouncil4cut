@@ -6,28 +6,38 @@ import { Frame } from '../types';
 
 export const FRAMES: Frame[] = [
   {
-    id: 'frame-1',
-    name: '클래식',
-    imageUrl: '/frames/frame-1.png',
-    thumbnail: '/frames/frame-1-thumb.png',
+    id: 'frame-white',
+    name: '대한네컷 화이트',
+    imageUrl: '/frames/frame-white.png',
+    thumbnail: '/frames/frame-white.png',
+    layout: 'default',
+    photoCount: 8, // 8장 촬영 후 4장 선택
   },
   {
-    id: 'frame-2',
-    name: '하트',
-    imageUrl: '/frames/frame-2.png',
-    thumbnail: '/frames/frame-2-thumb.png',
+    id: 'frame-black',
+    name: '대한네컷 블랙',
+    imageUrl: '/frames/frame-black.png',
+    thumbnail: '/frames/frame-black.png',
+    layout: 'default',
+    photoCount: 8, // 8장 촬영 후 4장 선택
   },
   {
-    id: 'frame-3',
-    name: '빈티지',
-    imageUrl: '/frames/frame-3.png',
-    thumbnail: '/frames/frame-3-thumb.png',
+    id: 'frame-hwanseung',
+    name: '환승대한',
+    imageUrl: '/frames/frame-hwanseung.png',
+    thumbnail: '/frames/frame-hwanseung.png',
+    layout: 'default', // 4개 영역
+    photoCount: 4, // 4장만 촬영 (각 영역마다 1장씩)
+    captureRatio: 463 / 689, // 각 영역의 비율로 촬영
   },
   {
-    id: 'no-frame',
-    name: '프레임 없음',
-    imageUrl: '',
-    thumbnail: '',
+    id: 'frame-munche',
+    name: '문체네컷',
+    imageUrl: '/frames/frame-munche.png',
+    thumbnail: '/frames/frame-munche.png',
+    layout: 'default',
+    photoCount: 4, // 4장만 촬영 (각 영역마다 1장씩)
+    captureRatio: 463 / 689,
   },
 ];
 
@@ -40,9 +50,10 @@ export const CLOUDINARY_CONFIG = {
 
 // 네 컷 사진 설정
 export const PHOTO_CONFIG = {
-  outputWidth: 1080, // 최종 이미지 너비
-  outputHeight: 1920, // 최종 이미지 높이 (세로형 4:3 비율)
-  photoCount: 4, // 촬영할 사진 개수
-  countdownSeconds: 3, // 촬영 전 카운트다운 시간
-  delayBetweenPhotos: 2000, // 각 촬영 간격 (밀리초)
+  outputWidth: 1080, // 최종 이미지 너비 (프레임 원본 비율)
+  outputHeight: 1920, // 최종 이미지 높이 (프레임 원본 비율)
+  totalPhotoCount: 8, // 촬영할 전체 사진 개수
+  selectedPhotoCount: 4, // 최종 선택할 사진 개수
+  countdownSeconds: 2, // 촬영 전 카운트다운 시간 (2초로 변경)
+  captureInterval: 1000, // 각 촬영 간격 (밀리초)
 };
