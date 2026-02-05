@@ -18,33 +18,81 @@
 
 body {
   margin: 0;
+  padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow: hidden;
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
 }
 
 /* 앱 컨테이너 크기 제한 (768 x 1024 비율 = 3:4) */
 #root {
-  max-width: 885px;
-  max-height: 1180px;
   width: 100vw;
   height: 100vh;
+  height: 100dvh; /* 동적 뷰포트 높이 (모바일 주소창 고려) */
   margin: 0 auto;
   overflow: hidden;
-  aspect-ratio: 768 / 1024;
+  position: relative;
+}
+
+/* 데스크톱에서만 최대 크기 제한 */
+@media (min-width: 886px) {
+  #root {
+    max-width: 885px;
+    max-height: 1180px;
+    aspect-ratio: 768 / 1024;
+  }
 }
 
 /* 높이 제한 */
 .h-screen {
   height: 100vh;
-  max-height: 1180px;
+  height: 100dvh; /* 동적 뷰포트 높이 (모바일 주소창 고려) */
 }
 
 * {
   box-sizing: border-box;
+}
+
+/* 모바일 스크롤 방지 및 터치 최적화 */
+html {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* iOS Safari 주소창 문제 해결 */
+@supports (-webkit-touch-callout: none) {
+  body {
+    height: -webkit-fill-available;
+  }
+  #root {
+    height: -webkit-fill-available;
+  }
+  .h-screen {
+    height: -webkit-fill-available;
+  }
+}
+
+/* Safe area 지원 (노치, 홈 인디케이터 등) */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: max(0px, env(safe-area-inset-left));
+    padding-right: max(0px, env(safe-area-inset-right));
+  }
+  
+  /* 하단 버튼 영역에 safe-area 적용 */
+  .safe-bottom {
+    padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+  }
 }
 
 /* 포토부스 스타일 배경 - 단조로운 색상 */

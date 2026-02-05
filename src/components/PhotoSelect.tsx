@@ -44,10 +44,10 @@ const PhotoSelect: React.FC<PhotoSelectProps> = ({
   };
 
   return (
-    <div className="h-screen photobooth-bg-alt p-3 overflow-hidden">
-      <div className="max-w-4xl mx-auto h-full flex flex-col">
+    <div className="h-screen photobooth-bg-alt overflow-hidden flex flex-col">
+      <div className="max-w-4xl mx-auto w-full h-full flex flex-col">
         {/* 헤더 */}
-        <div className="text-center mb-2 pt-1">
+        <div className="text-center py-2 px-3 flex-shrink-0">
           <div className="text-2xl mb-1">🖼️</div>
           <h1 className="text-xl font-black text-gray-800 mb-1">
             사진 선택
@@ -66,8 +66,8 @@ const PhotoSelect: React.FC<PhotoSelectProps> = ({
         </div>
 
         {/* 사진 그리드 - 전체 사진 표시 */}
-        <div className="mb-2 flex-1 overflow-y-auto">
-          <div className="bg-white rounded-xl p-2 soft-shadow">
+        <div className="flex-1 overflow-y-auto px-3" style={{ WebkitOverflowScrolling: 'touch' }}>
+          <div className="bg-white rounded-xl p-2 soft-shadow mb-2">
             <div className="grid grid-cols-2 gap-2">
               {photos.map((photo, index) => {
                 const isSelected = selectedIds.includes(photo.id);
@@ -133,11 +133,11 @@ const PhotoSelect: React.FC<PhotoSelectProps> = ({
         </div>
 
         {/* 버튼 */}
-        <div className="space-y-1.5">
+        <div className="flex-shrink-0 px-3 pt-2 space-y-1.5 bg-gradient-to-t from-gray-100 to-transparent safe-bottom">
           <button
             onClick={handleComplete}
             disabled={selectedIds.length !== requiredPhotoCount}
-            className={`w-full py-2.5 rounded-xl font-bold text-sm transition-all transform ${
+            className={`w-full py-3 rounded-xl font-bold text-sm transition-all transform ${
               selectedIds.length === requiredPhotoCount
                 ? 'bg-primary text-white hover:bg-secondary soft-shadow hover:scale-[1.02] active:scale-[0.98]'
                 : 'bg-gray-200 text-gray-400 cursor-not-allowed'
@@ -150,7 +150,7 @@ const PhotoSelect: React.FC<PhotoSelectProps> = ({
 
           <button
             onClick={onBack}
-            className="w-full py-2 bg-gray-500 text-white rounded-xl font-bold hover:bg-gray-600 transform hover:scale-[1.02] active:scale-[0.98] transition-all text-xs"
+            className="w-full py-2.5 bg-gray-500 text-white rounded-xl font-bold hover:bg-gray-600 transform hover:scale-[1.02] active:scale-[0.98] transition-all text-xs"
           >
              다시 촬영하기
           </button>

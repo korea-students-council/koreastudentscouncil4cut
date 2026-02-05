@@ -131,51 +131,54 @@ const Result: React.FC<ResultProps> = ({ photos, frame, onRestart }) => {
   }
 
   return (
-    <div className="h-screen photobooth-bg-alt p-2 flex flex-col overflow-hidden">
+    <div className="h-screen photobooth-bg-alt flex flex-col overflow-hidden">
       <div className="max-w-2xl mx-auto w-full flex flex-col h-full">
         {/* 헤더 */}
-        <div className="text-center py-2">
+        <div className="text-center py-2 px-3 flex-shrink-0">
           <h1 className="text-xl font-black text-gray-800 mb-0.5">완성!</h1>
           <p className="text-gray-600 text-xs font-medium">네 컷 사진이 완성되었습니다</p>
         </div>
 
-        {/* 완성된 이미지 */}
-        <div className="bg-white rounded-2xl soft-shadow p-2 mb-2 flex-shrink-0 flex items-center justify-center">
-          <div className="bg-gray-50 rounded-xl overflow-hidden" style={{ aspectRatio: 1080 / 1920, maxHeight: '50vh', width: 'auto' }}>
-            {composedImageUrl && (
-              <img
-                src={composedImageUrl}
-                alt="완성된 네 컷 사진"
-                className="w-full h-full"
-                style={{ objectFit: 'contain' }}
-              />
-            )}
+        {/* 컨텐츠 영역 */}
+        <div className="flex-1 flex flex-col px-3 overflow-y-auto" style={{ WebkitOverflowScrolling: 'touch' }}>
+          {/* 완성된 이미지 */}
+          <div className="bg-white rounded-2xl soft-shadow p-2 mb-2 flex items-center justify-center">
+            <div className="bg-gray-50 rounded-xl overflow-hidden" style={{ aspectRatio: 1080 / 1920, maxHeight: '60vh', width: 'auto' }}>
+              {composedImageUrl && (
+                <img
+                  src={composedImageUrl}
+                  alt="완성된 네 컷 사진"
+                  className="w-full h-full"
+                  style={{ objectFit: 'contain' }}
+                />
+              )}
+            </div>
           </div>
+
+          {/* QR 코드 - 더 컴팩트하게 */}
+          {qrCodeUrl && (
+            <div className="bg-white rounded-xl soft-shadow p-2 text-center flex-shrink-0">
+              <div className="flex items-center justify-center gap-2 mb-1">
+                <span className="text-xs font-bold text-gray-800">📱 QR 코드로 다운로드</span>
+              </div>
+              <div className="inline-block p-1.5 bg-gray-50 rounded-lg">
+                <img
+                  src={qrCodeUrl}
+                  alt="QR 코드"
+                  className="w-20 h-20"
+                />
+              </div>
+            </div>
+          )}
         </div>
 
-        {/* QR 코드 - 더 컴팩트하게 */}
-        {qrCodeUrl && (
-          <div className="bg-white rounded-xl soft-shadow p-2 mb-2 text-center flex-shrink-0">
-            <div className="flex items-center justify-center gap-2 mb-1">
-              <span className="text-xs font-bold text-gray-800">📱 QR 코드로 다운로드</span>
-            </div>
-            <div className="inline-block p-1.5 bg-gray-50 rounded-lg">
-              <img
-                src={qrCodeUrl}
-                alt="QR 코드"
-                className="w-20 h-20"
-              />
-            </div>
-          </div>
-        )}
-
         {/* 액션 버튼 */}
-        <div className="space-y-1.5 flex-shrink-0">
+        <div className="flex-shrink-0 px-3 pt-3 space-y-1.5 bg-gradient-to-t from-gray-100 to-transparent safe-bottom">
           <button
             onClick={handleDownload}
-            className="w-full py-2 bg-primary text-white rounded-xl font-bold text-xs hover:bg-secondary soft-shadow flex items-center justify-center gap-1.5 transform hover:scale-[1.02] active:scale-[0.98] transition-all"
+            className="w-full py-3 bg-primary text-white rounded-xl font-bold text-sm hover:bg-secondary soft-shadow flex items-center justify-center gap-1.5 transform hover:scale-[1.02] active:scale-[0.98] transition-all"
           >
-            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
             이미지 다운로드
@@ -184,9 +187,9 @@ const Result: React.FC<ResultProps> = ({ photos, frame, onRestart }) => {
           {uploadedImageUrl && (
             <button
               onClick={handleShare}
-              className="w-full py-2 bg-blue-500 text-white rounded-xl font-bold text-xs hover:bg-blue-600 soft-shadow flex items-center justify-center gap-1.5 transform hover:scale-[1.02] active:scale-[0.98] transition-all"
+              className="w-full py-3 bg-blue-500 text-white rounded-xl font-bold text-sm hover:bg-blue-600 soft-shadow flex items-center justify-center gap-1.5 transform hover:scale-[1.02] active:scale-[0.98] transition-all"
             >
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
               </svg>
               공유하기
@@ -195,7 +198,7 @@ const Result: React.FC<ResultProps> = ({ photos, frame, onRestart }) => {
 
           <button
             onClick={onRestart}
-            className="w-full py-1.5 bg-gray-500 text-white rounded-xl font-bold text-xs hover:bg-gray-600 transform hover:scale-[1.02] active:scale-[0.98] transition-all"
+            className="w-full py-2.5 bg-gray-500 text-white rounded-xl font-bold text-xs hover:bg-gray-600 transform hover:scale-[1.02] active:scale-[0.98] transition-all"
           >
             🔄 처음으로 돌아가기
           </button>

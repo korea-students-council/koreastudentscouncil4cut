@@ -243,10 +243,10 @@ const Camera: React.FC<CameraProps> = ({
   return (
     <div className="h-screen bg-gray-900 flex flex-col overflow-hidden">
       {/* 헤더 */}
-      <div className="flex items-center justify-between p-2 bg-black bg-opacity-50">
+      <div className="flex items-center justify-between p-2 bg-black bg-opacity-50 flex-shrink-0">
         <button
           onClick={onBack}
-          className="text-white px-3 py-1.5 rounded-xl hover:bg-white hover:bg-opacity-20 font-bold transition-all text-sm"
+          className="text-white px-3 py-2 rounded-xl hover:bg-white hover:bg-opacity-20 font-bold transition-all text-sm"
         >
           ← 뒤로
         </button>
@@ -256,7 +256,7 @@ const Camera: React.FC<CameraProps> = ({
       </div>
 
       {/* 카메라 뷰 */}
-      <div className="relative flex items-center justify-center bg-black camera-view-container" style={{ height: 'calc(100vh - 160px)' }}>
+      <div className="relative flex items-center justify-center bg-black camera-view-container flex-1" style={{ minHeight: 0 }}>
         {/* 특별 프레임 모드 (환승대한, 문체네컷): rect 영역을 화면 전체로 확대 */}
         {captureRatio && captureRatio !== 3/4 ? (
           <div 
@@ -396,8 +396,8 @@ const Camera: React.FC<CameraProps> = ({
 
       {/* 촬영된 사진 미리보기 */}
       {capturedPhotos.length > 0 && (
-        <div className="bg-black bg-opacity-50 p-1.5">
-          <div className="flex gap-1 overflow-x-auto">
+        <div className="bg-black bg-opacity-50 p-1.5 flex-shrink-0">
+          <div className="flex gap-1 overflow-x-auto" style={{ WebkitOverflowScrolling: 'touch' }}>
             {capturedPhotos.map((photo) => (
               <div
                 key={photo.id}
@@ -415,7 +415,7 @@ const Camera: React.FC<CameraProps> = ({
       )}
 
       {/* 컨트롤 버튼 */}
-      <div className="p-2 bg-black bg-opacity-50">
+      <div className="px-3 pt-3 bg-black bg-opacity-50 flex-shrink-0 safe-bottom">
         {state === 'ready' && (
           <div className="text-center">
             <p className="text-white text-xs mb-2 font-bold">
@@ -423,7 +423,7 @@ const Camera: React.FC<CameraProps> = ({
             </p>
             <button
               onClick={startCapturing}
-              className="w-full py-2.5 bg-primary text-white rounded-xl font-bold text-sm hover:bg-secondary soft-shadow transform hover:scale-[1.02] active:scale-[0.98] transition-all"
+              className="w-full py-3 bg-primary text-white rounded-xl font-bold text-base hover:bg-secondary soft-shadow transform hover:scale-[1.02] active:scale-[0.98] transition-all"
             >
                촬영 시작하기
             </button>
@@ -432,7 +432,7 @@ const Camera: React.FC<CameraProps> = ({
 
         {(state === 'capturing' || state === 'countdown') && currentPhotoIndex > 0 && (
           <div className="text-center text-white">
-            <div className="mb-1.5">
+            <div className="mb-2">
               <p className="text-base font-black mb-0.5">
                 {capturedPhotos.length} / {captureRatio && captureRatio !== 3/4 ? 4 : totalPhotoCount}
               </p>
@@ -442,7 +442,7 @@ const Camera: React.FC<CameraProps> = ({
                   : '촬영 완료!'}
               </p>
             </div>
-            <div className="h-1 bg-gray-700 rounded-full overflow-hidden">
+            <div className="h-1.5 bg-gray-700 rounded-full overflow-hidden">
               <div 
                 className="h-full bg-primary transition-all duration-300"
                 style={{ width: `${(capturedPhotos.length / totalPhotoCount) * 100}%` }}
@@ -452,9 +452,9 @@ const Camera: React.FC<CameraProps> = ({
         )}
 
         {state === 'completed' && (
-          <div className="space-y-1.5">
+          <div className="space-y-2">
             <div className="text-center text-white mb-1">
-              <p className="text-sm font-black mb-0.5">
+              <p className="text-base font-black mb-0.5">
                 {totalPhotoCount}장 촬영 완료!
               </p>
               <p className="text-xs text-gray-300">
@@ -463,13 +463,13 @@ const Camera: React.FC<CameraProps> = ({
             </div>
             <button
               onClick={handleComplete}
-              className="w-full py-2.5 bg-primary text-white rounded-xl font-bold text-sm hover:bg-secondary soft-shadow transform hover:scale-[1.02] active:scale-[0.98] transition-all"
+              className="w-full py-3 bg-primary text-white rounded-xl font-bold text-base hover:bg-secondary soft-shadow transform hover:scale-[1.02] active:scale-[0.98] transition-all"
             >
               {captureRatio && captureRatio !== 3/4 ? ' 결과 보기' : ' 사진 선택하러 가기'}
             </button>
             <button
               onClick={handleRetry}
-              className="w-full py-2 bg-gray-600 text-white rounded-xl font-bold text-xs hover:bg-gray-700 transform hover:scale-[1.02] active:scale-[0.98] transition-all"
+              className="w-full py-2.5 bg-gray-600 text-white rounded-xl font-bold text-sm hover:bg-gray-700 transform hover:scale-[1.02] active:scale-[0.98] transition-all"
             >
                다시 찍기
             </button>
