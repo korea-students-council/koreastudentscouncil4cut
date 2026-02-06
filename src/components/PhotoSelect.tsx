@@ -66,9 +66,9 @@ const PhotoSelect: React.FC<PhotoSelectProps> = ({
         </div>
 
         {/* 사진 그리드 - 전체 사진 표시 */}
-        <div className="flex-1 overflow-y-auto px-3 min-h-0" style={{ WebkitOverflowScrolling: 'touch' }}>
+        <div className="flex-1 overflow-y-auto px-3" style={{ WebkitOverflowScrolling: 'touch' }}>
           <div className="bg-white rounded-xl p-2 soft-shadow mb-2">
-            <div className="grid grid-cols-2 gap-2 pb-2">
+            <div className="grid grid-cols-2 gap-2">
               {photos.map((photo, index) => {
                 const isSelected = selectedIds.includes(photo.id);
                 const selectionOrder = selectedIds.indexOf(photo.id) + 1;
@@ -133,7 +133,7 @@ const PhotoSelect: React.FC<PhotoSelectProps> = ({
         </div>
 
         {/* 버튼 */}
-        <div className="flex-shrink-0 px-3 pt-3 pb-2 space-y-1.5 bg-gray-50 border-t border-gray-200 safe-bottom" style={{ zIndex: 10 }}>
+        <div className="flex-shrink-0 px-3 pt-2 space-y-1.5 bg-gradient-to-t from-gray-100 to-transparent safe-bottom">
           <button
             onClick={handleComplete}
             disabled={selectedIds.length !== requiredPhotoCount}

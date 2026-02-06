@@ -38,56 +38,22 @@ const Camera: React.FC<CameraProps> = ({
 
     const startCamera = async () => {
       try {
-        // navigator.mediaDevices 지원 확인
-        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-          setError('이 브라우저는 카메라를 지원하지 않습니다. Chrome, Safari, Firefox 등의 최신 브라우저를 사용해주세요.');
-          return;
-        }
-
-        // HTTPS 확인 (localhost는 예외)
-        if (location.protocol !== 'https:' && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
-          setError('카메라는 HTTPS 환경에서만 사용할 수 있습니다.');
-          return;
-        }
-
-        // 모바일 호환성을 위해 더 유연한 제약 조건 사용
-        const constraints: MediaStreamConstraints = {
+        const mediaStream = await navigator.mediaDevices.getUserMedia({
           video: {
             facingMode: 'user', // 전면 카메라 우선
-            width: { ideal: 1280 },
-            height: { ideal: 720 },
+            width: { ideal: 1080 },
+            height: { ideal: 1440 },
           },
           audio: false,
-        };
-
-        const mediaStream = await navigator.mediaDevices.getUserMedia(constraints);
+        });
 
         if (mounted && videoRef.current) {
           videoRef.current.srcObject = mediaStream;
-          // 비디오 재생 보장 (모바일에서 중요)
-          try {
-            await videoRef.current.play();
-          } catch (playErr) {
-            console.warn('비디오 자동 재생 실패:', playErr);
-          }
           setStream(mediaStream);
         }
       } catch (err) {
         console.error('카메라 접근 오류:', err);
-        // 더 자세한 에러 메시지
-        if (err instanceof Error) {
-          if (err.name === 'NotAllowedError') {
-            setError('카메라 권한이 거부되었습니다. 브라우저 설정에서 카메라 권한을 허용해주세요.');
-          } else if (err.name === 'NotFoundError') {
-            setError('카메라를 찾을 수 없습니다. 기기에 카메라가 있는지 확인해주세요.');
-          } else if (err.name === 'NotReadableError') {
-            setError('카메라가 다른 앱에서 사용 중입니다. 다른 앱을 종료하고 다시 시도해주세요.');
-          } else {
-            setError(`카메라 오류: ${err.message}`);
-          }
-        } else {
-          setError('카메라에 접근할 수 없습니다. 권한을 확인해주세요.');
-        }
+        setError('카메라에 접근할 수 없습니다. 권한을 확인해주세요.');
       }
     };
 
@@ -449,7 +415,7 @@ const Camera: React.FC<CameraProps> = ({
       )}
 
       {/* 컨트롤 버튼 */}
-      <div className="px-3 pt-3 pb-2 bg-black bg-opacity-70 flex-shrink-0 safe-bottom" style={{ zIndex: 10 }}>
+      <div className="px-3 pt-3 bg-black bg-opacity-50 flex-shrink-0 safe-bottom">
         {state === 'ready' && (
           <div className="text-center">
             <p className="text-white text-xs mb-2 font-bold">

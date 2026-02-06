@@ -173,7 +173,7 @@ const Result: React.FC<ResultProps> = ({ photos, frame, onRestart }) => {
         </div>
 
         {/* 액션 버튼 */}
-        <div className="flex-shrink-0 px-3 pt-3 pb-2 space-y-1.5 bg-gray-50 border-t border-gray-200 safe-bottom" style={{ zIndex: 10 }}>
+        <div className="flex-shrink-0 px-3 pt-3 space-y-1.5 bg-gradient-to-t from-gray-100 to-transparent safe-bottom">
           <button
             onClick={handleDownload}
             className="w-full py-3 bg-primary text-white rounded-xl font-bold text-sm hover:bg-secondary soft-shadow flex items-center justify-center gap-1.5 transform hover:scale-[1.02] active:scale-[0.98] transition-all"
