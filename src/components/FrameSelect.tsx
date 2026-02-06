@@ -59,7 +59,7 @@ const FrameSelect: React.FC<FrameSelectProps> = ({
           </p>
         </div>
 
-        {/* 프레임 슬라이드 */}
+        {/* 프레임 슬라이드 */} 
         <div className="flex-1 relative">
           <div
             ref={scrollContainerRef}
