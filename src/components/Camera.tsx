@@ -38,6 +38,18 @@ const Camera: React.FC<CameraProps> = ({
 
     const startCamera = async () => {
       try {
+        // navigator.mediaDevices 지원 확인
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+          setError('이 브라우저는 카메라를 지원하지 않습니다. Chrome, Safari, Firefox 등의 최신 브라우저를 사용해주세요.');
+          return;
+        }
+
+        // HTTPS 확인 (localhost는 예외)
+        if (location.protocol !== 'https:' && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
+          setError('카메라는 HTTPS 환경에서만 사용할 수 있습니다.');
+          return;
+        }
+
         // 모바일 호환성을 위해 더 유연한 제약 조건 사용
         const constraints: MediaStreamConstraints = {
           video: {
