@@ -437,7 +437,7 @@ const Camera: React.FC<CameraProps> = ({
       )}
 
       {/* 컨트롤 버튼 */}
-      <div className="px-3 pt-3 bg-black bg-opacity-50 flex-shrink-0 safe-bottom">
+      <div className="px-3 pt-3 pb-2 bg-black bg-opacity-70 flex-shrink-0 safe-bottom" style={{ zIndex: 10 }}>
         {state === 'ready' && (
           <div className="text-center">
             <p className="text-white text-xs mb-2 font-bold">
