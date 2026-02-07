@@ -11,7 +11,7 @@ export const FRAMES: Frame[] = [
     imageUrl: '/frames/frame-white.png',
     thumbnail: '/frames/frame-white.png',
     layout: 'default',
-    photoCount: 8, // 8장 촬영 후 4장 선택
+    photoCount: 6, // 6장 촬영 후 4장 선택
   },
   {
     id: 'frame-black',
@@ -19,7 +19,7 @@ export const FRAMES: Frame[] = [
     imageUrl: '/frames/frame-black.png',
     thumbnail: '/frames/frame-black.png',
     layout: 'default',
-    photoCount: 8, // 8장 촬영 후 4장 선택
+    photoCount: 6, // 6장 촬영 후 4장 선택
   },
   {
     id: 'frame-hwanseung',
