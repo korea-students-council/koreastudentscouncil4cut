@@ -54,6 +54,6 @@ export const PHOTO_CONFIG = {
   outputHeight: 1920, // 최종 이미지 높이 (프레임 원본 비율)
   totalPhotoCount: 8, // 촬영할 전체 사진 개수
   selectedPhotoCount: 4, // 최종 선택할 사진 개수
-  countdownSeconds: 3, // 촬영 전 카운트다운 시간 (10초)
+  countdownSeconds: 7, // 촬영 전 카운트다운 시간 (10초)
   captureInterval: 1000, // 각 촬영 간격 (밀리초)
 };
