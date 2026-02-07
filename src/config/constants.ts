@@ -11,7 +11,7 @@ export const FRAMES: Frame[] = [
     imageUrl: '/frames/frame-white.png',
     thumbnail: '/frames/frame-white.png',
     layout: 'default',
-    photoCount: 6, // 6장 촬영 후 4장 선택
+    photoCount: 8, // 8장 촬영 후 4장 선택
   },
   {
     id: 'frame-black',
@@ -19,7 +19,7 @@ export const FRAMES: Frame[] = [
     imageUrl: '/frames/frame-black.png',
     thumbnail: '/frames/frame-black.png',
     layout: 'default',
-    photoCount: 6, // 6장 촬영 후 4장 선택
+    photoCount: 8, // 8장 촬영 후 4장 선택
   },
   {
     id: 'frame-hwanseung',
@@ -52,7 +52,7 @@ export const CLOUDINARY_CONFIG = {
 export const PHOTO_CONFIG = {
   outputWidth: 1080, // 최종 이미지 너비 (프레임 원본 비율)
   outputHeight: 1920, // 최종 이미지 높이 (프레임 원본 비율)
-  totalPhotoCount: 6, // 촬영할 전체 사진 개수
+  totalPhotoCount: 8, // 촬영할 전체 사진 개수
   selectedPhotoCount: 4, // 최종 선택할 사진 개수
   countdownSeconds: 7, // 촬영 전 카운트다운 시간 (10초)
   captureInterval: 1000, // 각 촬영 간격 (밀리초)

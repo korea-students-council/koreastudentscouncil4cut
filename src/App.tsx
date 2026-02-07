@@ -78,8 +78,8 @@ const App: React.FC = () => {
           photos={capturedPhotos}
           onComplete={handlePhotoSelectComplete}
           onBack={handleBackToCamera}
-          requiredPhotoCount={selectedFrame?.photoCount === 8 ? 4 : (selectedFrame?.photoCount || 4)}
-          photosPerArea={selectedFrame?.photoCount === 8 ? 2 : 1}
+          requiredPhotoCount={4}
+          photosPerArea={1}
         />
       )}
 
