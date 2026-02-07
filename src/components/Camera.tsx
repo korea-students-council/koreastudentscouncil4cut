@@ -167,6 +167,9 @@ const Camera: React.FC<CameraProps> = ({
           setCurrentPhotoIndex(photoIndex);
         }
 
+        // 짧은 지연 후 다음 단계로 (플래시 애니메이션 시간과 동일)
+        await new Promise(resolve => setTimeout(resolve, 500));
+
         // 마지막 사진이면 완료
         if (photoIndex >= totalPhotoCount) {
           setState('completed');
@@ -384,13 +387,7 @@ const Camera: React.FC<CameraProps> = ({
 
         {/* 촬영 순간 플래시 효과 */}
         {state === 'capturing' && (
-          <div className="absolute inset-0 bg-white z-10 pointer-events-none animate-flash">
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-              <div className="bg-primary text-white px-6 py-3 rounded-2xl font-black text-xl shadow-2xl">
-                 찰칵!
-              </div>
-            </div>
-          </div>
+          <div className="absolute inset-0 bg-white z-10 pointer-events-none animate-flash" />
         )}
       </div>
 
